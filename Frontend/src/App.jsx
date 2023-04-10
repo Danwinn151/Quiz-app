@@ -5,7 +5,7 @@ import Login from './containers/Login'
 import Home from "./containers/Home"
 import EditQuiz from './components/editquiz'
 import TakeQuiz from "./components/TakeQuiz"
-import Update from './components/update'
+import Update from './components/updateQuiz'
 import './App.css'
 import {Routes, Route} from "react-router-dom"
 

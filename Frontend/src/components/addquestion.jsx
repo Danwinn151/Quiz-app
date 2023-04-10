@@ -3,8 +3,7 @@ import { useGlobalContext } from '../../AuthContext'
 import { useFormik } from 'formik';
 import { Fragment } from 'react';
 
-const questionPage = ({quizId}) => {
-  console.log(quizId)
+const questionPage = ({id}) => {
   const {createQuestionByQuizId, handleCloseQuestionModal, setShowQuestionModal} = useGlobalContext()
   //this will store the questions data
     const [questions, setQuestions] = useState([])
@@ -20,7 +19,6 @@ const questionPage = ({quizId}) => {
       }
       setQuestions([...questions, newQuestion])
     }
-
     
 const initialValues = {
   prompt: '',
@@ -39,7 +37,8 @@ const initialValues = {
           options,
           correctAnswer,
         }
-      createQuestionByQuizId(quizId, prompt, options, correctAnswer)
+      createQuestionByQuizId(id, prompt, options, correctAnswer)
+      window.location.reload()
       setQuestions([...questions, newQuestionDetails])
       setShowQuestionModal(false)
       },

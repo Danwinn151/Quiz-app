@@ -83,7 +83,6 @@ const editQuizDetails = async (quizId, updatedQuizName, updatedQuizDescription, 
       description: updatedQuizDescription,
       points: updatedQuizPoints,
       timeLimit: updatedQuizTimeLimit,
-      // etc.
         
     })
     window.location.reload()

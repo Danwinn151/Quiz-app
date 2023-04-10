@@ -5,13 +5,19 @@ import { FiEdit2 } from 'react-icons/fi';
 import { Link } from "react-router-dom";
 import { useGlobalContext } from "../../AuthContext"
 import { AiOutlineDelete } from 'react-icons/ai';
-import UpdateModal from './updateModal'
+import UpdateModal from './updateQuiz'
 import AddQuestion from "./addquestion"
 
 const EditQuizPage = () => {
     const [quizDetails, setQuizDetails] = useState([])
-    const {getQuizDetails, deleteQuizDetails, showModal, 
-      handleOpenModal, handleCloseModal, editQuizDetails, handleOpenQuestionModal, handleCloseQuestionModal,} = useGlobalContext()
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [quizId, setQuizId] = useState(null);
+    const [quizName, setQuizName] = useState(null)
+    const [quizDescription, setQuizDescription] = useState(null)
+    const [quizTimeLimit, setQuizTimeLimit] = useState(null)
+    const [quizPoints, setQuizPoints] = useState(null)
+    const {getQuizDetails, deleteQuizDetails, showModal, showQuestionModal,
+      handleOpenModal, handleCloseModal, handleOpenQuestionModal, handleCloseQuestionModal,} = useGlobalContext()
 
     const handleFetchQuizDetails = async () => {
          try{
@@ -38,10 +44,24 @@ const EditQuizPage = () => {
 
    }
 
-   const handleOpenModalId = async (id, name, timeLimit, description, points) => {
-      await editQuizDetails(id, name, timeLimit, description, points)
-      handleOpenModal()
-   }
+   const handleIsModalOpen = (id, name, description, timeLimit, points) => {
+     setIsModalOpen(true) // Set the quiz id in the state
+     setQuizId(id)
+     setQuizName(name)
+     setQuizDescription(description)
+     setQuizTimeLimit(timeLimit)
+     setQuizPoints(points)
+  }
+
+  const handleIsModalClose = () => {
+    setIsModalOpen(false) // Set the quiz id in the state
+ }
+
+ const handleIsQuestionModalOpen = (id) => {
+  handleOpenQuestionModal()// Set the quiz id in the state
+  setQuizId(id)
+}
+  
 
     return (
         <div>
@@ -60,12 +80,12 @@ const EditQuizPage = () => {
             </div>
 
       </div>
-         </nav>N B
+         </nav>
 
          <div className="text-center p-3 mt-4">
   <h2 className="text-2xl font-bold mb-2">Your Created Quizzes</h2>
   <div className="shadow-sm pt-3 pb-3 font-poppins bg-transparent">
-    {quizDetails.map((detail, index) => {
+    {quizDetails.map((detail) => {
       const { name, timeLimit, description, points, _id, questions } = detail;
       return (
         <div className="flex flex-col" key={_id}>
@@ -75,7 +95,7 @@ const EditQuizPage = () => {
             <div className="flex flex-col items-center justify-center">
               <p className="text-white font-poppins font-thin">{name}</p>
               <div className="add-question-btn">
-                <button onClick={handleOpenQuestionModal} className="bg-blue-600 text-white font-poppins">
+                <button onClick={() => handleIsQuestionModalOpen(_id)} className="bg-blue-600 text-white font-poppins">
                   Add Question
                 </button>
               </div>
@@ -84,7 +104,7 @@ const EditQuizPage = () => {
       
       <div className="flex flex-col items-center justify-center gap-3">
         <div className="flex flex-row gap-3">
-              <FiEdit2 onClick={() => handleOpenModalId(_id, name, timeLimit, points, _id)} />
+             <FiEdit2 onClick={() => handleIsModalOpen(_id, name, description, timeLimit, points)} />
               <AiOutlineDelete onClick={() => handleDeleteDetails(_id)} />
           </div>
           {questions.length > 0 &&
@@ -96,28 +116,28 @@ const EditQuizPage = () => {
       </div>
             
 
-            {showModal && (
+            {isModalOpen && (
               <div className={`${
                 handleOpenModal ? 'modal-overlay show-modal' : 'modal-overlay'
               }`}>
                 <div className="modal-container">
-                  <UpdateModal quizName={name} id={_id} handleCloseModal={handleCloseModal} />
+                  <UpdateModal name={quizName} id={quizId} description={quizDescription} timeLimit={quizTimeLimit} points={quizPoints} handleModalClose={handleIsModalClose} handleIsModalClose={handleIsModalClose} />
                 </div>
               </div>
             )}
 
-            {/* {showQuestionModal && (
+            {showQuestionModal && (
               <div className={`${
                 handleOpenModal ? 'modal-overlay show-modal' : 'modal-overlay'
               }`}>
                 <div className="modal-container">
-                  <AddQuestion quizId={_id} handleCloseQuestionModal={handleCloseModal} />
+                  <AddQuestion id={quizId}  handleCloseQuestionModal={handleCloseModal} />
                 </div>
               </div>
-            )} */}
+            )} 
           </div>
 
-          <div className="mt-3 p-3 bg-white rounded-md shadow-md">
+           <div className="mt-3 p-3 bg-white rounded-md shadow-md">
             <form>
               <div className="flex flex-col">
                 <label className="text-gray-700 font-semibold mb-2" htmlFor="timeLimit">
@@ -173,4 +193,4 @@ const EditQuizPage = () => {
     )
 }
 
-export default EditQuizPage
+export default EditQuizPage 

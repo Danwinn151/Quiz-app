@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import axios from 'axios';
 import {useNavigate} from "react-router-dom"
 import {Form, Formik, Field, useFormik} from "formik"
 import { useGlobalContext } from '../../AuthContext';
 import * as Yup from 'yup'
 
 
-const Modal = ({ handleCloseModal }) => {
+const Update = ({ handleIsModalClose, name, id, description, timeLimit, points }) => {
+    console.log(name)
+    console.log(id)
   const navigate = useNavigate()
-  const {signIn, postQuizDetails} = useGlobalContext()
+  const {signIn, editQuizDetails} = useGlobalContext()
   const [status, setStatus] = useState("")
 const validationSchema = Yup.object().shape({
     timeLimit: Yup.number().required('Time limit is required').min(1, 'Time limit must be at least 1 minute').max(60, 'Time limit cannot exceed 60 minutes'),
@@ -19,12 +20,13 @@ const validationSchema = Yup.object().shape({
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      description: "",
-      timeLimit: "",
-      points: "",
+      name: name,
+      description: description,
+      timeLimit: timeLimit,
+      points: points,
     },
     validationSchema,
+    id,
     onSubmit: async (values) => {
       console.log(values.name); // access form data
       console.log(values.description);
@@ -32,7 +34,7 @@ const validationSchema = Yup.object().shape({
       console.log(values.points);
       const {name, description, timeLimit, points} = values
       try {
-        const post =  await postQuizDetails(name, description, timeLimit, points);  
+        const post =  await editQuizDetails(id, name, description, timeLimit, points);  
         if(post){
           setStatus("successfully created")
           setStatus("")
@@ -55,7 +57,7 @@ const validationSchema = Yup.object().shape({
     {({errors, touched}) => (
      <div className="modal absolute  left-0 right-0  animate-fadeIn flex justify-center debug">
       <div className="modal-content flex flex-col w-[300px]">
-        <h2>Create Your Quiz</h2>
+        <h2>Edit Your Quiz</h2>
         <Form  onSubmit={formik.handleSubmit} className='flex flex-col items-center p-5 shadow-md w-full bg-green-100 rounded-md'>
           <label htmlFor="name">Name:</label>
           <input
@@ -102,10 +104,10 @@ const validationSchema = Yup.object().shape({
         <small>{formik.errors.timeLimit}</small>
          ) : null}
 
-          <button type="submit" className='bg-blue-300 mt-3'>Create</button>
+          <button type="submit" className='bg-blue-300 mt-3'>Edit</button>
         </Form>
         <small className="text-green-500 font-poppins">{status}</small>
-        <button type="submit" className='bg-red-500 mt-4' onClick={handleCloseModal}>Close Modal</button>
+        <button type="submit" className='bg-red-500 mt-4' onClick={handleIsModalClose}>Close</button>
       </div>
     </div>
     )}
@@ -118,4 +120,4 @@ const validationSchema = Yup.object().shape({
   );
 };
 
-export default Modal;
+export default Update;
