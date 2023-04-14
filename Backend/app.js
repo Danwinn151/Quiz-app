@@ -20,7 +20,7 @@ const start = async () => {
   try {
     const connection = await connectDB(process.env.MONGO_URL)
   if(connection){
-    app.listen(port, () => {
+    app.listen(process.env.PORT || port, () => {
     console.log(`port is listening on port ${port}`)
 })
   }
