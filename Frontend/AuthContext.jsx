@@ -105,6 +105,12 @@ const createQuestionByQuizId = async(quizId, prompt, options, correctAnswer) => 
     }
 }
 
+const fetchQuizData = async (quizId) => {
+  const response = await axios.get(`${API_BASE_URL}/questions/${quizId}`);
+  console.log(response)
+ // Convert minutes to seconds
+};
+
     return <AuthContext.Provider value={{
         signIn,
         postQuizDetails,

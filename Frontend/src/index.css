@@ -58,6 +58,81 @@ a:hover {
   place-items: center;
   position: relative;
 }
+
+/* .modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgba(0, 0, 0, 0.4); 
+}
+
+.modal.is-active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+.modal-card {
+  background-color: #fff;
+  padding: 20px;
+  max-width: 700px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.modal-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-card-body {
+  margin-top: 20px;
+}
+
+.modal-card-body h2 {
+  margin-bottom: 10px;
+}
+
+.modal-card-body ul {
+  margin-bottom: 10px;
+}
+
+.modal-card-foot {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.delete {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  position: relative;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0.25rem 0.5rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.delete:hover {
+  background-color: transparent;
+}
+
+
+
 body {
   margin: 0;
   /* display: flex;

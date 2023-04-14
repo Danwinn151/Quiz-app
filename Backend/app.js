@@ -17,12 +17,17 @@ app.use("/api/v1/quiz/questions", question)
 //starting the connection
 
 const start = async () => {
-  const connection = await connectDB(process.env.MONGO_URL)
+  try {
+    const connection = await connectDB(process.env.MONGO_URL)
   if(connection){
     app.listen(port, () => {
     console.log(`port is listening on port ${port}`)
 })
   }
+  } catch (error) {
+    console.log(error)
+  }
+  
 }
 start()
 

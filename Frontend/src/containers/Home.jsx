@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import {VscMenu} from "react-icons/vsc"
 import {FaUserAlt} from "react-icons/fa"
 import {Link} from "react-router-dom"
-import CreateFormModal from '../components/CreateQuizModal'
+import CreateQuizModal from '../components/CreateQuizModal'
+import TakeQuiz from "../components/Quiz"
 const Home = () => {
   const [showModal, setShowModal] = useState(false)
 
@@ -46,7 +47,7 @@ const Home = () => {
       }`}
     >
         <div className="modal-container">
-        <CreateFormModal handleCloseModal={handleCloseModal}/>
+        <CreateQuizModal handleCloseModal={handleCloseModal}/>
         </div> 
       </div>
         }

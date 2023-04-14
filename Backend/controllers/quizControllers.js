@@ -21,13 +21,13 @@ const createQuiz = async (req, res) => {
 const getQuiz = async (req, res) => {
    
     try {
-         const {id: TaskId} = req.params
-         console.log(TaskId)
-        const singleTaskWithId = await Quiz.findById({_id: TaskId})
-        if(!singleTaskWithId){
+         const {id: QuizId} = req.params
+         console.log(QuizId)
+        const singleQuizWithId = await Quiz.findById({_id: QuizId})
+        if(!singleQuizWithId){
             return res.status(404).json({msg: `task not found with id ${TaskId}`})
        }
-       res.status(200).json({singleTaskWithId})
+       res.status(200).json({singleQuizWithId})
        } catch (error) {
          console.log(error)
          res.status(500).json({msg: error})

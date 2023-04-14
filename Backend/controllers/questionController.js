@@ -2,8 +2,13 @@ const Question = require("../models/question")
 const Quiz = require("../models/Quiz")
 
 const getAllQuestions = async (req, res) => {
-    const allQuestions = await question.find({})
-    console.log(allQuestions)
+  try{
+   const allQuestions = await Question.find({})
+    res.status(200).json({allQuestions}) 
+  } catch(error){
+    console.log(error)
+  }
+    
 }  
 
 const createQuestion = async (req, res) => {
@@ -28,7 +33,8 @@ const createQuestion = async (req, res) => {
     res.status(201).json({question})
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json({ error: 'Server error' })
+
   }
  
 }
@@ -45,7 +51,7 @@ const getQuiz = async (req, res) => {
        res.status(200).json({singleQuestionWithId})
        } catch (error) {
          console.log(error)
-         res.status(500).json({msg: error})
+         res.status(500).json({error: error})
       }
 }
 
