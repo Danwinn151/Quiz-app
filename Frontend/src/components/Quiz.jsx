@@ -14,7 +14,7 @@ const Quiz = () => {
 
   useEffect(() => {
     const fetchQuizData = async () => {
-      const response = await axios.get(`http://localhost:3000/api/v1/quiz/${id}`);
+      const response = await axios.get(`https://quiz-app-service2.onrender.com/api/v1/quiz/${id}`);
       console.log(response)
       const fetchedQuestions = response.data.singleQuizWithId.questions;
       setQuestions(fetchedQuestions);
@@ -32,6 +32,8 @@ const Quiz = () => {
   useEffect(() => {
     if (timeRemaining === 0) {
       setIsQuizCompleted(true);
+      const nextQuestion = currentQuestionIndex
+      nextQuestion = nextQuestion + 1
     }
   }, [timeRemaining]);
 
@@ -81,12 +83,15 @@ const Quiz = () => {
       </li> 
      ))}
         </ul>
-        <button
+        <div className='text-center '>
+          <button className='bg-red-500'
           onClick={handleNextQuestion}
           disabled={selectedOption === ''}
         >
           Next
         </button>
+        </div>
+        
       </div>
     </div>
   );

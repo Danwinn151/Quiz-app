@@ -1,9 +1,40 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { AuthProvider } from '../../AuthContext'
 import {FaUserFriends, FaUserCheck} from "react-icons/fa"
 import {GiPadlock} from "react-icons/gi"
 import {MdAlternateEmail} from "react-icons/md"
+
+import {
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  signInWithPopup,
+  signInWithRedirect,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth"
+
+import { auth } from '../../firebase'
+
+
 const Login = () => {
+  const [user, setUser] = useState([])
+
+const googleSignIn = () => {
+  const provider = new GoogleAuthProvider();
+   signInWithPopup(auth, provider)
+  //signInWithRedirect(auth, provider)
+}
+
+
+const unsubscribe =  onAuthStateChanged(auth, (currentUser) => {
+  setUser(currentUser)
+ localStorage.setItem('user', JSON.stringify(currentUser))
+ })  
+
+
+ useEffect(() => {
+  unsubscribe()
+ },[])
   return (
     <div>
 
@@ -43,7 +74,7 @@ const Login = () => {
   </label> <br/>
    </div>
       <div>
-        <button className='bg-blue-500 text-white'>Register</button>
+        <button onClick={googleSignIn} className='bg-blue-500 text-white'>Register</button>
       </div>
    </form>
     </div>

@@ -10,7 +10,7 @@ import {auth} from "./firebase"
 import axios from "axios"
 
 const AuthContext = React.createContext()
-const API_BASE_URL = 'http://localhost:3000/api/v1/quiz';
+const API_BASE_URL = 'https://quiz-app-service2.onrender.com/api/v1/quiz';
 
 
 

@@ -5,7 +5,7 @@ const questionsModal = ({handleCloseViewQuestionModal, questions}) => {
     return (
       <div className=''>
         <div className="modal-background "></div>
-        <div className="bg-white rounded-lg shadow-lg p-5 w-[200px]">
+        <div className="bg-white rounded-lg shadow-lg p-5 w-auto flex flex-col">
           <header className="text-center">
             <p className="font-bold font-mono">Questions</p>
             <button className="delete" aria-label="close" ></button>

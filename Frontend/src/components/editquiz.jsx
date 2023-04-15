@@ -186,7 +186,7 @@ const handleIsViewQuestionModalClose = (id) => {
            <div className="mt-3 p-3 bg-white">
            <QuizDetails timeLimit={timeLimit} description={description} points={points} />
            {questions.length > 0 &&
-           <div className="take-quiz-container mt-2 debug">
+           <div className="take-quiz-container mt-2">
            <button onClick={() => navigate(`/takeQuiz/${_id}`)} className="bg-red-500">Take quiz </button>
            </div>
            }
@@ -199,11 +199,7 @@ const handleIsViewQuestionModalClose = (id) => {
       );
     })}
   </div>
-  <div className="take-quiz-container mt-2 debug">
-  <Link to={{ pathname: '/test', state: { name: quizName, timeLimit: quizTimeLimit,} }}>
-  <button className="bg-red-500">Take Quiz</button>
-</Link>
-           </div>
+  
     </>
   }
   
