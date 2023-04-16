@@ -60,10 +60,6 @@ const SideBar = ({closeSideBar, user}) => {
        </div>
      </div>
       <div className='flex justify-center bg-white items-center shadow-md  '>
-         
-        <button onClick={logOut} className='bg-red-500 w-[90px] gap-2 flex flex-row items-center  text-white font-poppins px-2 py-3 rounded-md'>
-        <AiOutlineLogout/> Logout 
-        </button>
       </div>
     </div>
     )

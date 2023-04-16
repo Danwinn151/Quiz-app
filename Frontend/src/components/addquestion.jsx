@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import { Fragment } from 'react';
 
 const questionPage = ({id}) => {
+  console.log(id)
   const {createQuestionByQuizId, handleCloseQuestionModal, setShowQuestionModal} = useGlobalContext()
   //this will store the questions data
     const [questions, setQuestions] = useState([])

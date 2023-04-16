@@ -10,6 +10,7 @@ import QuestionsModal from "./questionsModal";
 import AddQuestion from "./addquestion"
 import QuizSpinner from "./Spinner";
 import QuizDetails from "./QuizDetails";
+import {AiFillCloseCircle} from "react-icons/ai"
 
 
 const EditQuizPage = () => {
@@ -120,7 +121,6 @@ const handleIsViewQuestionModalClose = (id) => {
       <div className="">
     {quizDetails.map((detail) => {
       const { name, timeLimit, description, points, _id, questions } = detail;
-      console.log(questions)
       return (
         <div className="flex flex-col mt-3 p-3 bg-white rounded-md shadow-md" key={_id}>
          
@@ -143,9 +143,7 @@ const handleIsViewQuestionModalClose = (id) => {
           </div>
           {questions.length > 0 &&
           <div>
-            <button onClick={() => {
-             handleIsViewQuestionModalOpen(_id)
-            }} className="bg-green-700 hover:bg-green-400 shadow-lg font-poppins text-white">View Questions</button>
+            <button onClick={() =>  handleIsViewQuestionModalOpen(_id)} className="bg-green-700 hover:bg-green-400 shadow-lg font-poppins text-white">View Questions</button>
           </div>
           }
           
@@ -167,7 +165,10 @@ const handleIsViewQuestionModalClose = (id) => {
                 handleOpenModal ? 'modal-overlay show-modal' : 'modal-overlay'
               }`}>
                 <div className="modal-container">
-                  <AddQuestion id={quizId}  handleCloseQuestionModal={handleCloseModal} />
+                <div className="flex justify-end items-end ml-[20px]">
+                <AiFillCloseCircle fontSize={30} className="cursor-pointer" onClick={handleCloseQuestionModal}/>
+                </div>
+                <AddQuestion id={quizId}  handleCloseQuestionModal={handleCloseModal} />
                 </div>
               </div>
             )} 
@@ -177,8 +178,8 @@ const handleIsViewQuestionModalClose = (id) => {
             <div className={`${
                handleOpenModal ? 'modal-overlay show-modal' : 'modal-overlay'
               }`}>
-                <div className="modal-container">
-                  <QuestionsModal id={quizId} questions={questions}  handleCloseViewQuestionModal={handleIsViewQuestionModalClose} />
+                <div className="modal-container top-5">
+                  <QuestionsModal id={questionId} questions={questions}  handleCloseViewQuestionModal={handleIsViewQuestionModalClose} />
                 </div>
               </div>
           )}

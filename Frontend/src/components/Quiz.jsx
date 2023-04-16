@@ -8,67 +8,76 @@ const Quiz = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState('');
   const [score, setScore] = useState(0);
-  const [point, setPoint] = useState(0)
-  const [timeRemaining, setTimeRemaining] = useState(0);
+  const [totalPoints, setTotalPoints] = useState(0)
+  const [timeLeft, setTimeLeft] = useState(0);
   const [isQuizCompleted, setIsQuizCompleted] = useState(false);
 
   useEffect(() => {
     const fetchQuizData = async () => {
       const response = await axios.get(`https://quiz-app-service2.onrender.com/api/v1/quiz/${id}`);
-      console.log(response)
+      console.log(response.data)
       const fetchedQuestions = response.data.singleQuizWithId.questions;
       setQuestions(fetchedQuestions);
-      console.log(questions.length)
-      setPoint(response.data.singleQuizWithId.points)
-      console.log(point)
       setScore(fetchedQuestions.reduce((total, question) => total + question.points, 0));
-      setTimeRemaining(response.data.singleQuizWithId.timeLimit * 60);
-      console.log(questions)
-      console.log(questions[currentQuestionIndex].options)
+      console.log(response.data.singleQuizWithId.timeLimit * 60)
+      setTimeLeft(response.data.singleQuizWithId.timeLimit * 60);
+      setTotalPoints(fetchedQuestions.reduce((total, question) => total + question.points, 0));
     };
     fetchQuizData();
   }, [id]);
 
+
+
   useEffect(() => {
-    if (timeRemaining === 0) {
-      setIsQuizCompleted(true);
-      const nextQuestion = currentQuestionIndex
-      nextQuestion = nextQuestion + 1
+    setIsQuizCompleted(false)
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => prevTime - 10)
+    }, 1000)bvv
+     return () => {
+      clearInterval(timer)
+     setIsQuizCompleted(true)
+     }
+     
+  }, []);
+
+  useEffect(() => {
+    if(timeLeft === 0){
+      setIsQuizCompleted(true)
     }
-  }, [timeRemaining]);
+  },[timeLeft])
 
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
   };
 
   const handleNextQuestion = () => {
-    const isCorrect = selectedOption === questions[currentQuestionIndex].correctOption;
+    alert("testing")
+    const isCorrect = selectedOption === questions[currentQuestionIndex]?.correctAnswer;
     if (isCorrect) {
-      setScore(score + point);
-    }
-    const nextQuestionIndex = currentQuestionIndex + 1;
-    console.log(nextQuestionIndex)
-    if (nextQuestionIndex < questions.length) {
-      setCurrentQuestionIndex(nextQuestionIndex);
-    } else {
-      setIsQuizCompleted(true);
+      setScore((prevScore) => prevScore + 1);
     }
     setSelectedOption('');
+   setCurrentQuestionIndex((prevIndex) => prevIndex + 1)
+   console.log(currentQuestionIndex)
+   
+   const question = questions[currentQuestionIndex]
+
+    
   };
 
   
-// if (isQuizCompleted) {
-//     return (
-//       <div>
-//         <h1>Quiz completed!</h1>
-//         <p>Your score is: {score}/{questions.reduce((total, question) => total + question.points, 0)}</p>
-//       </div>
-//     );
-//   }
+if (isQuizCompleted) {
+    return (
+      <div>
+        <h1>Quiz completed!</h1>
+        <p>Your score is: {!score ? "0" : score}</p>
+      </div>
+    );
+  }
   return (
     <div>
       <h1>Quiz: {questions.length} Questions</h1>
-      <h2>Time Remaining: {timeRemaining} seconds</h2>
+      <h2>Time Remaining: {timeLeft} seconds</h2>
       <div>
         <h3>{questions[currentQuestionIndex]?.prompt}</h3>
         <ul>

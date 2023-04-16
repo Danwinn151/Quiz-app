@@ -16,6 +16,7 @@ const API_BASE_URL = 'https://quiz-app-service2.onrender.com/api/v1/quiz';
 
 
 
+
 export const AuthProvider = ({children}) => {
 
 const [showModal, setShowModal] = useState(false)

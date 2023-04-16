@@ -1,5 +1,8 @@
 import React from 'react'
 
+
+
+
 const QuizDetails = ({points, timeLimit, description}) => {
   return (
      <form>
