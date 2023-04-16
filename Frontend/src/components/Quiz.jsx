@@ -30,9 +30,7 @@ const Quiz = () => {
 
   useEffect(() => {
     setIsQuizCompleted(false)
-    const timer = setInterval(() => {
-      setTimeLeft((prevTime) => prevTime - 10)
-    }, 1000)bvv
+   
      return () => {
       clearInterval(timer)
      setIsQuizCompleted(true)
